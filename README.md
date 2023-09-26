@@ -1,1 +1,5 @@
-# proyecto-tdaw
+# Integrantes
+
+Matias Castro
+Francisco González
+Diego Valdera
