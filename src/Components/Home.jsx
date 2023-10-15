@@ -34,7 +34,7 @@ const Home = () => {
           </Grid>
 
           <Grid item xs={4}>
-            <p>Liked</p>
+            <Typography variant="h6">Liked</Typography>
             {/* <List>
             {matches.map((match, index) => (
               <CandidateCard key={index} match={match} />
@@ -44,7 +44,7 @@ const Home = () => {
           </Grid>
 
           <Grid item xs={4}>
-            <p>Disliked</p>
+            <Typography variant="h6">Disliked</Typography>
             <RejectedCard dislikedCandidates={rejecteds} />
           </Grid>
         </Grid>

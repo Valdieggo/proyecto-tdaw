@@ -1,19 +1,28 @@
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import CardMedia from "@mui/material/CardMedia";
 
 export default function MatchCard({ likedCandidates }) {
   return (
     <>
       {likedCandidates.map((candidate, index) => (
-        <Card key={index}>
+        <Card
+          key={index}
+          sx={{ maxWidth: 345, borderRadius: 5, marginBottom: 3 }}
+        >
+          <CardMedia
+            sx={{ height: 200 }}
+            image={candidate.image}
+            title={candidate.name}
+          />
           <CardContent>
-            <Typography variant="h6">{candidate.name}</Typography>
-            <img
-              src={candidate.image}
-              alt={candidate.name}
-              style={{ maxWidth: "100%" }}
-            />
+            <Typography gutterBottom variant="h5" component="div">
+              {candidate.name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Descripción del candidato si la tienes
+            </Typography>
           </CardContent>
         </Card>
       ))}
