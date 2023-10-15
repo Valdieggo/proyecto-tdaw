@@ -1,5 +1,5 @@
 import "./App.css";
-import Card from "./Components/Card.jsx";
+import Home from "./Components/Home.jsx";
 import doginder from "./assets/doginder.svg";
 
 function App() {
@@ -9,7 +9,7 @@ function App() {
         <img src={doginder}></img>
       </div>
       <div>
-        <Card></Card>
+        <Home />
       </div>
     </div>
   );
