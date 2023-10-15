@@ -1,17 +1,22 @@
 import "./App.css";
 import Home from "./Components/Home.jsx";
 import doginder from "./assets/doginder.svg";
+import { QueryClient, QueryClientProvider} from "react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
   return (
-    <div>
-      <div style={{ flexDirection: "row", flex: 1 }}>
-        <img src={doginder}></img>
-      </div>
+    <QueryClientProvider client={queryClient}>
       <div>
-        <Home />
+        <div style={{ flexDirection: "row", flex: 1 }}>
+          <img src={doginder} alt="Logo de doginder"></img>
+        </div>
+        <div>
+          <Home />
+        </div>
       </div>
-    </div>
+    </QueryClientProvider>
   );
 }
 

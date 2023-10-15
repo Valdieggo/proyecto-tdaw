@@ -7,16 +7,13 @@ import Typography from "@mui/material/Typography";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { useState, useEffect } from "react";
+import { useDogImageQuery } from "../../queries/queryDogImage";
 
 export default function MediaCard({ onLike, onDislike }) {
   const [image, setImage] = useState(null);
   const [name, setName] = useState(null);
 
-  const getImage = async () => {
-    const response = await fetch("https://dog.ceo/api/breeds/image/random");
-    const data = await response.json();
-    setImage(data.message);
-  };
+  const { data, isLoading, refetch, isRefetching } = useDogImageQuery();
 
   const generateRandomName = (length) => {
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -47,9 +44,11 @@ export default function MediaCard({ onLike, onDislike }) {
   };
 
   useEffect(() => {
-    getImage();
-    generateRandomName(6);
-  }, []);
+    if (data) {
+      setImage(data);
+      generateRandomName(6);
+    }
+  }, [data]);
 
   return (
     image && (
