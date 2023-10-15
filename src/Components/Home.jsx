@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import CandidateCard from "./Cards/CandidateCard";
 import MatchCard from "./Cards/MatchCard";
-//import RejectedCard from "./Cards/RejectedCard";
 import { Grid, List, Typography } from "@mui/material";
 import RejectedCard from "./Cards/RejectedCard";
 
@@ -35,11 +34,6 @@ const Home = () => {
 
           <Grid item xs={4}>
             <Typography variant="h6">Liked</Typography>
-            {/* <List>
-            {matches.map((match, index) => (
-              <CandidateCard key={index} match={match} />
-            ))}
-          </List> */}
             <MatchCard likedCandidates={matches} />
           </Grid>
 

@@ -19,8 +19,7 @@ export default function MediaCard({ onLike, onDislike }) {
   };
 
   const generateRandomName = (length) => {
-    const characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
     let randomName = "";
 
     for (let i = 0; i < length; i++) {
