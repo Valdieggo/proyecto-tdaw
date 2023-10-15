@@ -9,9 +9,10 @@ import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import { useState, useEffect } from "react";
 import { useDogImageQuery } from "../../queries/queryDogImage";
 
-export default function MediaCard({ onLike, onDislike }) {
+const CandidateCard = ({ onLike, onDislike }) => {
   const [image, setImage] = useState(null);
   const [name, setName] = useState(null);
+  const [buttonsDisabled, setButtonsDisabled] = useState(false);
 
   const { data, isLoading, refetch, isRefetching } = useDogImageQuery();
 
@@ -28,19 +29,23 @@ export default function MediaCard({ onLike, onDislike }) {
   };
 
   const handleLike = () => {
+    setButtonsDisabled(true); // Deshabilita los botones
     const likeData = {
       name: name,
       image: image,
     };
     onLike(likeData);
+    setButtonsDisabled(false); // Habilita los botones
   };
 
   const handleDislike = () => {
+    setButtonsDisabled(true); // Deshabilita los botones
     const dislikeData = {
       name: name,
       image: image,
     };
     onDislike(dislikeData);
+    setButtonsDisabled(false); // Habilita los botones
   };
 
   useEffect(() => {
@@ -49,6 +54,14 @@ export default function MediaCard({ onLike, onDislike }) {
       generateRandomName(6);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (isRefetching || isLoading) {
+      setButtonsDisabled(true);
+    } else {
+      setButtonsDisabled(false);
+    }
+  }, [isRefetching, isLoading]);
 
   return (
     image && (
@@ -63,15 +76,20 @@ export default function MediaCard({ onLike, onDislike }) {
             species, ranging across all continents except Antarctica
           </Typography>
         </CardContent>
-        <CardActions disableSpacing>
-          <Button size="small">
-            <ThumbDownIcon onClick={handleDislike} />
+        <CardActions disableSpacing sx={{ justifyContent: "center" }}>
+          <Button
+            size="small"
+            onClick={handleDislike}
+            disabled={buttonsDisabled}
+          >
+            <ThumbDownIcon />
           </Button>
-          <Button size="small" onClick={handleLike}>
+          <Button size="small" onClick={handleLike} disabled={buttonsDisabled}>
             <ThumbUpIcon />
           </Button>
         </CardActions>
       </Card>
     )
   );
-}
+};
+export default CandidateCard;

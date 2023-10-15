@@ -3,7 +3,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 
-export default function MatchCard({ likedCandidates }) {
+const MatchCard = ({ likedCandidates }) => {
   return (
     <>
       {likedCandidates.map((candidate, index) => (
@@ -28,4 +28,6 @@ export default function MatchCard({ likedCandidates }) {
       ))}
     </>
   );
-}
+};
+
+export default MatchCard;

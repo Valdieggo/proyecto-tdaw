@@ -3,7 +3,7 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
 
-export default function RejectedCard({ dislikedCandidates }) {
+const RejectedCard = ({ dislikedCandidates }) => {
   return (
     <>
       {dislikedCandidates.map((candidate, index) => (
@@ -28,4 +28,6 @@ export default function RejectedCard({ dislikedCandidates }) {
       ))}
     </>
   );
-}
+};
+
+export default RejectedCard;
