@@ -1,40 +1,35 @@
+import { useState, useEffect } from "react";
+
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import CircularProgress from "@mui/material/CircularProgress";
-import { useState, useEffect } from "react";
+
 import { useDogImageQuery } from "../../queries/queryDogImage";
 import generateRandomDogName from "../../utils/generateRandomDogName";
 import generateDogDescription from "../../utils/generateDogDescription";
 
 const CandidateCard = ({ onLike, onDislike }) => {
   const [image, setImage] = useState(null);
-  const [buttonsDisabled, setButtonsDisabled] = useState(false);
-  const [loadingMessage, setLoadingMessage] = useState(null);
   const [name, setName] = useState(null);
   const [description, setDescription] = useState(null);
+  const [buttonsDisabled, setButtonsDisabled] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState(null);
 
   const { data, isLoading, isRefetching } = useDogImageQuery();
 
-  const handleLike = () => {
-    const likeData = {
-      name: name,
+  const handleAction = (action) => {
+    const data = {
       image: image,
-    };
-    onLike(likeData);
-  };
-
-  const handleDislike = () => {
-    const dislikeData = {
       name: name,
-      image: image,
+      description: description,
     };
-    onDislike(dislikeData);
+    action(data);
   };
 
   useEffect(() => {
@@ -53,35 +48,38 @@ const CandidateCard = ({ onLike, onDislike }) => {
   }, [data, isRefetching, isLoading]);
 
   return (
-    <Card sx={{ maxWidth: 345, borderRadius: 5 }}>
+    <Card sx={{ maxWidth: 340, borderRadius: 5 }}>
       {loadingMessage ? (
         <>
-          <CardContent sx={{ height: 200 }}>
+          <CardContent>
             {/* <Typography variant="body1" align="center">
               {loadingMessage}
             </Typography> */}
             <CircularProgress />
           </CardContent>
-          <CardActions disableSpacing sx={{ justifyContent: "center" }}>
-            <Button
-              size="small"
-              onClick={handleDislike}
-              disabled={buttonsDisabled}
-            >
+          <CardActions
+            disableSpacing
+            sx={{ display: "flex", justifyContent: "center" }}
+          >
+            <IconButton size="large" disabled={buttonsDisabled}>
               <ThumbDownIcon />
-            </Button>
-            <Button
-              size="small"
-              onClick={handleLike}
-              disabled={buttonsDisabled}
-            >
+            </IconButton>
+            <IconButton size="large" disabled={buttonsDisabled}>
               <ThumbUpIcon />
-            </Button>
+            </IconButton>
           </CardActions>
         </>
       ) : (
         <>
-          <CardMedia sx={{ height: 200 }} image={image} title="green iguana" />
+          {image && (
+            <CardMedia
+              component="img"
+              width="200"
+              height="200"
+              image={image}
+              alt="Imagen de perro"
+            />
+          )}
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {name}
@@ -90,21 +88,28 @@ const CandidateCard = ({ onLike, onDislike }) => {
               {description}
             </Typography>
           </CardContent>
-          <CardActions disableSpacing sx={{ justifyContent: "center" }}>
-            <Button
-              size="small"
-              onClick={handleDislike}
-              disabled={buttonsDisabled}
+          <CardActions
+            disableSpacing
+            sx={{ display: "flex", justifyContent: "center" }}
+          >
+            <IconButton
+              size="large"
+              // sx={{ color: "#d12013" }}
+              color="primary"
+              aria-label="Megusta"
+              onClick={() => handleAction(onDislike)}
             >
               <ThumbDownIcon />
-            </Button>
-            <Button
-              size="small"
-              onClick={handleLike}
-              disabled={buttonsDisabled}
+            </IconButton>
+            <IconButton
+              size="large"
+              // sx={{ color: "#d12013" }}
+              color="primary"
+              aria-label="No megusta"
+              onClick={() => handleAction(onLike)}
             >
               <ThumbUpIcon />
-            </Button>
+            </IconButton>
           </CardActions>
         </>
       )}

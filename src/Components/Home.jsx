@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Typography, Box } from "@mui/material";
 
 import CandidateCard from "./Cards/CandidateCard";
 import MatchCard from "./Cards/MatchCard";
@@ -11,27 +11,27 @@ const Home = () => {
   const [newCandidate, setNewCandidate] = useState(true);
   const [dogWithOpenDescription, setDogWithOpenDescription] = useState(null);
 
-  const handleToggleDescription = (dogId) => {
-    if (dogWithOpenDescription === dogId) {
+  const handleToggleDescription = (dogUrl) => {
+    if (dogWithOpenDescription === dogUrl) {
       setDogWithOpenDescription(null);
     } else {
-      setDogWithOpenDescription(dogId);
+      setDogWithOpenDescription(dogUrl);
     }
   };
 
   const addMatch = (data) => {
-    setMatches((prevMatches) => [...prevMatches, data]);
+    setMatches((prevMatches) => [data, ...prevMatches]);
     setNewCandidate(false);
   };
 
   const addRejected = (data) => {
-    setRejected((prevRejecteds) => [...prevRejecteds, data]);
+    setRejected((prevRejecteds) => [data, ...prevRejecteds]);
     setNewCandidate(false);
   };
 
   const moveToMatches = (candidate) => {
     // Agregar a matches
-    setMatches((prevMatches) => [...prevMatches, candidate]);
+    setMatches((prevMatches) => [candidate, ...prevMatches]);
 
     // Eliminar de rejecteds
     setRejected((prevRejecteds) =>
@@ -41,7 +41,7 @@ const Home = () => {
 
   const moveToRejecteds = (candidate) => {
     // Agregar a rejecteds
-    setRejected((prevRejecteds) => [...prevRejecteds, candidate]);
+    setRejected((prevRejecteds) => [candidate, ...prevRejecteds]);
 
     // Eliminar de matches
     setMatches((prevMatches) =>
@@ -56,35 +56,61 @@ const Home = () => {
   return (
     newCandidate && (
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={12} sm={4} md={4}>
           <Typography variant="h6" color="textPrimary">
             Candidato
           </Typography>
           <CandidateCard onLike={addMatch} onDislike={addRejected} />
         </Grid>
 
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={6} sm={4} md={4}>
           <Typography variant="h6" color="textPrimary">
             Rechazados
           </Typography>
-          <RejectedCard
-            dislikedCandidates={rejecteds}
-            onMove={moveToMatches}
-            dogWithOpenDescription={dogWithOpenDescription}
-            toggleDescription={handleToggleDescription}
-          />
+          <Box
+            sx={{
+              maxHeight: "70vh",
+              overflowY: "auto",
+              "&::-webkit-scrollbar": {
+                width: "0px",
+                background: "transparent", // make scrollbar transparent
+              },
+              scrollbarWidth: "none", // For Firefox
+              msOverflowStyle: "none", // For Internet Explorer and Edge
+            }}
+          >
+            <RejectedCard
+              dislikedCandidates={rejecteds}
+              onMove={moveToMatches}
+              dogWithOpenDescription={dogWithOpenDescription}
+              toggleDescription={handleToggleDescription}
+            />
+          </Box>
         </Grid>
 
-        <Grid item xs={12} sm={6} md={4}>
+        <Grid item xs={6} sm={4} md={4}>
           <Typography variant="h6" color="textPrimary">
             Aceptados
           </Typography>
-          <MatchCard
-            likedCandidates={matches}
-            onMove={moveToRejecteds}
-            dogWithOpenDescription={dogWithOpenDescription}
-            toggleDescription={handleToggleDescription}
-          />
+          <Box
+            sx={{
+              maxHeight: "70vh",
+              overflowY: "auto",
+              "&::-webkit-scrollbar": {
+                width: "0px",
+                background: "transparent", // make scrollbar transparent
+              },
+              scrollbarWidth: "none", // For Firefox
+              msOverflowStyle: "none", // For Internet Explorer and Edge
+            }}
+          >
+            <MatchCard
+              likedCandidates={matches}
+              onMove={moveToRejecteds}
+              dogWithOpenDescription={dogWithOpenDescription}
+              toggleDescription={handleToggleDescription}
+            />
+          </Box>
         </Grid>
       </Grid>
     )
