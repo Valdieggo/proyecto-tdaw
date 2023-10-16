@@ -9,6 +9,15 @@ const Home = () => {
   const [matches, setMatches] = useState([]);
   const [rejecteds, setRejected] = useState([]);
   const [newCandidate, setNewCandidate] = useState(true);
+  const [dogWithOpenDescription, setDogWithOpenDescription] = useState(null);
+
+  const handleToggleDescription = (dogId) => {
+    if (dogWithOpenDescription === dogId) {
+      setDogWithOpenDescription(null);
+    } else {
+      setDogWithOpenDescription(dogId);
+    }
+  };
 
   const addMatch = (data) => {
     setMatches((prevMatches) => [...prevMatches, data]);
@@ -58,14 +67,24 @@ const Home = () => {
           <Typography variant="h6" color="textPrimary">
             Rechazados
           </Typography>
-          <RejectedCard dislikedCandidates={rejecteds} onMove={moveToMatches} />
+          <RejectedCard
+            dislikedCandidates={rejecteds}
+            onMove={moveToMatches}
+            dogWithOpenDescription={dogWithOpenDescription}
+            toggleDescription={handleToggleDescription}
+          />
         </Grid>
 
         <Grid item xs={12} sm={6} md={4}>
           <Typography variant="h6" color="textPrimary">
             Aceptados
           </Typography>
-          <MatchCard likedCandidates={matches} onMove={moveToRejecteds} />
+          <MatchCard
+            likedCandidates={matches}
+            onMove={moveToRejecteds}
+            dogWithOpenDescription={dogWithOpenDescription}
+            toggleDescription={handleToggleDescription}
+          />
         </Grid>
       </Grid>
     )
