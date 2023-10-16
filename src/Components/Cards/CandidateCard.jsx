@@ -6,6 +6,7 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
+import CircularProgress from "@mui/material/CircularProgress";
 import { useState, useEffect } from "react";
 import { useDogImageQuery } from "../../queries/queryDogImage";
 
@@ -13,8 +14,9 @@ const CandidateCard = ({ onLike, onDislike }) => {
   const [image, setImage] = useState(null);
   const [name, setName] = useState(null);
   const [buttonsDisabled, setButtonsDisabled] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState(null);
 
-  const { data, isLoading, refetch, isRefetching } = useDogImageQuery();
+  const { data, isLoading, isRefetching } = useDogImageQuery();
 
   const generateRandomName = (length) => {
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
@@ -29,23 +31,19 @@ const CandidateCard = ({ onLike, onDislike }) => {
   };
 
   const handleLike = () => {
-    setButtonsDisabled(true); // Deshabilita los botones
     const likeData = {
       name: name,
       image: image,
     };
     onLike(likeData);
-    setButtonsDisabled(false); // Habilita los botones
   };
 
   const handleDislike = () => {
-    setButtonsDisabled(true); // Deshabilita los botones
     const dislikeData = {
       name: name,
       image: image,
     };
     onDislike(dislikeData);
-    setButtonsDisabled(false); // Habilita los botones
   };
 
   useEffect(() => {
@@ -58,38 +56,71 @@ const CandidateCard = ({ onLike, onDislike }) => {
   useEffect(() => {
     if (isRefetching || isLoading) {
       setButtonsDisabled(true);
+      setLoadingMessage("Cargando...");
     } else {
       setButtonsDisabled(false);
+      setLoadingMessage(null);
     }
   }, [isRefetching, isLoading]);
 
   return (
-    image && (
-      <Card sx={{ maxWidth: 345, borderRadius: 5 }}>
-        <CardMedia sx={{ height: 200 }} image={image} title="green iguana" />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-            {name}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
-          </Typography>
-        </CardContent>
-        <CardActions disableSpacing sx={{ justifyContent: "center" }}>
-          <Button
-            size="small"
-            onClick={handleDislike}
-            disabled={buttonsDisabled}
-          >
-            <ThumbDownIcon />
-          </Button>
-          <Button size="small" onClick={handleLike} disabled={buttonsDisabled}>
-            <ThumbUpIcon />
-          </Button>
-        </CardActions>
-      </Card>
-    )
+    <Card sx={{ maxWidth: 345, borderRadius: 5 }}>
+      {loadingMessage ? (
+        <>
+          <CardContent sx={{ height: 200}}>
+            {/* <Typography variant="body1" align="center">
+              {loadingMessage}
+            </Typography> */}
+            <CircularProgress />
+          </CardContent>
+          <CardActions disableSpacing sx={{ justifyContent: "center" }}>
+            <Button
+              size="small"
+              onClick={handleDislike}
+              disabled={buttonsDisabled}
+            >
+              <ThumbDownIcon />
+            </Button>
+            <Button
+              size="small"
+              onClick={handleLike}
+              disabled={buttonsDisabled}
+            >
+              <ThumbUpIcon />
+            </Button>
+          </CardActions>
+        </>
+      ) : (
+        <>
+          <CardMedia sx={{ height: 200 }} image={image} title="green iguana" />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {name}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Lizards are a widespread group of squamate reptiles, with over
+              6,000 species, ranging across all continents except Antarctica
+            </Typography>
+          </CardContent>
+          <CardActions disableSpacing sx={{ justifyContent: "center" }}>
+            <Button
+              size="small"
+              onClick={handleDislike}
+              disabled={buttonsDisabled}
+            >
+              <ThumbDownIcon />
+            </Button>
+            <Button
+              size="small"
+              onClick={handleLike}
+              disabled={buttonsDisabled}
+            >
+              <ThumbUpIcon />
+            </Button>
+          </CardActions>
+        </>
+      )}
+    </Card>
   );
 };
 export default CandidateCard;

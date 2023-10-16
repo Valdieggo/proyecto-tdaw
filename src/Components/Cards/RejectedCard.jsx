@@ -2,8 +2,10 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import CardActions from "@mui/material/CardActions";
 
-const RejectedCard = ({ dislikedCandidates }) => {
+const RejectedCard = ({ dislikedCandidates, onMove }) => {
   return (
     <>
       {dislikedCandidates.map((candidate, index) => (
@@ -24,6 +26,11 @@ const RejectedCard = ({ dislikedCandidates }) => {
               Descripción del candidato si la tienes
             </Typography>
           </CardContent>
+          <CardActions disableSpacing sx={{ justifyContent: "center" }}>
+            <Button onClick={() => onMove(candidate)} sx={{ mt: 2 }}>
+              Arrepentirse
+            </Button>
+          </CardActions>
         </Card>
       ))}
     </>

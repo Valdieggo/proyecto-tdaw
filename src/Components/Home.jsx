@@ -20,6 +20,26 @@ const Home = () => {
     setNewCandidate(false);
   };
 
+  const moveToMatches = (candidate) => {
+    // Agregar a matches
+    setMatches((prevMatches) => [...prevMatches, candidate]);
+
+    // Eliminar de rejecteds
+    setRejected((prevRejecteds) =>
+      prevRejecteds.filter((item) => item.image !== candidate.image)
+    );
+  };
+
+  const moveToRejecteds = (candidate) => {
+    // Agregar a rejecteds
+    setRejected((prevRejecteds) => [...prevRejecteds, candidate]);
+
+    // Eliminar de matches
+    setMatches((prevMatches) =>
+      prevMatches.filter((item) => item.image !== candidate.image)
+    );
+  };
+
   useEffect(() => {
     setNewCandidate(true);
   }, [matches, rejecteds]);
@@ -38,14 +58,14 @@ const Home = () => {
           <Typography variant="h6" color="textPrimary">
             Rechazados
           </Typography>
-          <RejectedCard dislikedCandidates={rejecteds} />
+          <RejectedCard dislikedCandidates={rejecteds} onMove={moveToMatches} />
         </Grid>
 
         <Grid item xs={12} sm={6} md={4}>
           <Typography variant="h6" color="textPrimary">
             Aceptados
           </Typography>
-          <MatchCard likedCandidates={matches} />
+          <MatchCard likedCandidates={matches} onMove={moveToRejecteds} />
         </Grid>
       </Grid>
     )
