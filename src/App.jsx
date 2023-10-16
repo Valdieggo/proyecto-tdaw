@@ -1,17 +1,19 @@
+import { Box, Container } from "@mui/material";
+import { QueryClient, QueryClientProvider } from "react-query";
 import "./App.css";
 import Home from "./Components/Home.jsx";
 import doginder from "./assets/doginder.svg";
 
+const queryClient = new QueryClient();
+
 function App() {
   return (
-    <div>
-      <div style={{ flexDirection: "row", flex: 1 }}>
-        <img src={doginder}></img>
-      </div>
-      <div>
+    <QueryClientProvider client={queryClient}>
+      <Container>
+        <img src={doginder} alt="Logo de Doginder" />
         <Home />
-      </div>
-    </div>
+      </Container>
+    </QueryClientProvider>
   );
 }
 

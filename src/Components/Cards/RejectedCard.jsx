@@ -2,30 +2,73 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
+import IconButton from "@mui/material/IconButton";
+import CardActions from "@mui/material/CardActions";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import ExpandLessIcon from "@mui/icons-material/ExpandLess";
+import SwapHorizontalCircleIcon from "@mui/icons-material/SwapHorizontalCircle";
 
-export default function RejectedCard({ dislikedCandidates }) {
+const RejectedCard = ({
+  dislikedCandidates,
+  onMove,
+  dogWithOpenDescription,
+  toggleDescription,
+}) => {
   return (
     <>
       {dislikedCandidates.map((candidate, index) => (
         <Card
           key={index}
-          sx={{ maxWidth: 345, borderRadius: 5, marginBottom: 3 }}
+          sx={{ maxWidth: 340, borderRadius: 5, marginBottom: 3 }}
         >
+          {console.log(candidate)}
           <CardMedia
-            sx={{ height: 200 }}
+            component="img"
+            width="200"
+            height="200"
             image={candidate.image}
-            title={candidate.name}
+            alt="Imagen de perro"
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
               {candidate.name}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Descripción del candidato si la tienes
-            </Typography>
+            {dogWithOpenDescription === candidate.image && (
+              <Typography variant="body2" color="text.secondary">
+                {candidate.description}
+              </Typography>
+            )}
           </CardContent>
+          <CardActions
+            disableSpacing
+            sx={{ display: "flex", justifyContent: "space-between" }}
+          >
+            <IconButton
+               size="large"
+              //  sx={{ color: "#d12013" }}
+              color="error"
+              aria-label="descripcion"
+              onClick={() => toggleDescription(candidate.image)}
+            >
+              {dogWithOpenDescription === candidate.image ? (
+                <ExpandLessIcon />
+              ) : (
+                <ExpandMoreIcon />
+              )}
+            </IconButton>
+            <IconButton
+              size="large"
+              // sx={{ color: "#d12013" }}
+              color="error"
+              onClick={() => onMove(candidate)}
+            >
+              <SwapHorizontalCircleIcon />
+            </IconButton>
+          </CardActions>
         </Card>
       ))}
     </>
   );
-}
+};
+
+export default RejectedCard;
