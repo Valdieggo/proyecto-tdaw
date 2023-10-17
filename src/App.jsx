@@ -1,8 +1,9 @@
-import { Box, Container } from "@mui/material";
+import { Container } from "@mui/material";
 import { QueryClient, QueryClientProvider } from "react-query";
-import "./App.css";
+
 import Home from "./Components/Home.jsx";
 import doginder from "./assets/doginder.svg";
+import "./App.css";
 
 const queryClient = new QueryClient();
 

@@ -4,8 +4,9 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -15,46 +16,44 @@ import generateRandomDogName from "../../utils/generateRandomDogName";
 import generateDogDescription from "../../utils/generateDogDescription";
 
 const CandidateCard = ({ onLike, onDislike }) => {
-  const [image, setImage] = useState(null);
-  const [name, setName] = useState(null);
-  const [description, setDescription] = useState(null);
-  const [buttonsDisabled, setButtonsDisabled] = useState(false);
-  const [loadingMessage, setLoadingMessage] = useState(null);
+  
+  const [candidate, setCandidate] = useState({
+    image: null,
+    name: null,
+    description: null,
+  });
+
+  const [buttonsDisabled, setButtonsDisabled] = useState(false); // hooks para desabilitar los botones mientras carga el nuevo candidato
+  const [loadingMessage, setLoadingMessage] = useState(null); // mensaje de carga
 
   const { data, isLoading, isRefetching } = useDogImageQuery();
 
   const handleAction = (action) => {
-    const data = {
-      image: image,
-      name: name,
-      description: description,
-    };
-    action(data);
+    action(candidate);
   };
 
   useEffect(() => {
     if (data) {
-      setImage(data);
-      setName(generateRandomDogName());
-      setDescription(generateDogDescription());
+      setCandidate({
+        image: data,
+        name: generateRandomDogName(),
+        description: generateDogDescription(),
+      });
     }
-    if (isRefetching || isLoading) {
+    if (isRefetching) {
       setButtonsDisabled(true);
       setLoadingMessage("Cargando...");
     } else {
       setButtonsDisabled(false);
       setLoadingMessage(null);
     }
-  }, [data, isRefetching, isLoading]);
+  }, [data, isRefetching]);
 
   return (
     <Card sx={{ Width: 340, borderRadius: 5 }}>
       {loadingMessage ? (
         <>
           <CardContent>
-            {/* <Typography variant="body1" align="center">
-              {loadingMessage}
-            </Typography> */}
             <CircularProgress />
           </CardContent>
           <CardActions
@@ -71,21 +70,21 @@ const CandidateCard = ({ onLike, onDislike }) => {
         </>
       ) : (
         <>
-          {image && (
+          {candidate.image && (
             <CardMedia
               component="img"
               width="200"
               height="200"
-              image={image}
+              image={candidate.image}
               alt="Imagen de perro"
             />
           )}
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {name}
+              {candidate.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {description}
+              {candidate.description}
             </Typography>
           </CardContent>
           <CardActions
@@ -94,7 +93,6 @@ const CandidateCard = ({ onLike, onDislike }) => {
           >
             <IconButton
               size="large"
-              // sx={{ color: "#d12013" }}
               color="primary"
               aria-label="Megusta"
               onClick={() => handleAction(onDislike)}
@@ -103,7 +101,6 @@ const CandidateCard = ({ onLike, onDislike }) => {
             </IconButton>
             <IconButton
               size="large"
-              // sx={{ color: "#d12013" }}
               color="primary"
               aria-label="No megusta"
               onClick={() => handleAction(onLike)}
