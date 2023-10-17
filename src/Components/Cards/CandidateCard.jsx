@@ -40,14 +40,14 @@ const CandidateCard = ({ onLike, onDislike }) => {
         description: generateDogDescription(),
       });
     }
-    if (isRefetching) {
+    if (isLoading || isRefetching) {
       setButtonsDisabled(true);
       setLoadingMessage("Cargando...");
     } else {
       setButtonsDisabled(false);
       setLoadingMessage(null);
     }
-  }, [data, isRefetching]);
+  }, [data, isLoading, isRefetching]);
 
   return (
     <Card sx={{ Width: 340, borderRadius: 5 }}>
