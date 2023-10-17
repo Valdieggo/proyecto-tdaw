@@ -22,7 +22,7 @@ const Home = () => {
   const [matches, setMatches] = useState([]); // Lista de aceptados
   const [rejecteds, setRejected] = useState([]); // Lista de rechazados
   const [newCandidate, setNewCandidate] = useState(true); // Candidato nuevo
-  const [dogWithOpenDescription, setDogWithOpenDescription] = useState(null);
+  const [dogWithOpenDescription, setDogWithOpenDescription] = useState(null); //Mostrar descripcion del perro
 
   const handleToggleDescription = (dogUrl) => {
     if (dogWithOpenDescription === dogUrl) {
@@ -42,6 +42,10 @@ const Home = () => {
     sourceSetter((prev) =>
       prev.filter((item) => item.image !== candidate.image)
     );
+    //  Identifica si el perro que está mostrando su descripción es cambiado de lista 
+    if (dogWithOpenDescription === candidate.image) {
+      setDogWithOpenDescription(null);
+    }
   };
 
   useEffect(() => {
@@ -71,11 +75,7 @@ const Home = () => {
               <RejectedCard
                 dislikedCandidates={rejecteds}
                 onMove={(candidate) =>
-                  moveTo(
-                    setRejected,
-                    setMatches,
-                    candidate
-                  )
+                  moveTo(setRejected, setMatches, candidate)
                 }
                 dogWithOpenDescription={dogWithOpenDescription}
                 toggleDescription={handleToggleDescription}
@@ -90,11 +90,7 @@ const Home = () => {
               <MatchCard
                 likedCandidates={matches}
                 onMove={(candidate) =>
-                  moveTo(
-                    setMatches,
-                    setRejected,
-                    candidate
-                  )
+                  moveTo(setMatches, setRejected, candidate)
                 }
                 dogWithOpenDescription={dogWithOpenDescription}
                 toggleDescription={handleToggleDescription}

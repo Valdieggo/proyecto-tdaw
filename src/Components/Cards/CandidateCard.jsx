@@ -17,11 +17,11 @@ import generateDogDescription from "../../utils/generateDogDescription";
 
 const CandidateCard = ({ onLike, onDislike }) => {
   
-  const [image, setImage] = useState(null);
-  const [name, setName] = useState(null);
-  const [description, setDescription] = useState(null);
-  const [buttonsDisabled, setButtonsDisabled] = useState(false);
-  const [loadingMessage, setLoadingMessage] = useState(null);
+  const [image, setImage] = useState(null); // imagen del perro
+  const [name, setName] = useState(null); // nombre del perro
+  const [description, setDescription] = useState(null); // descripcion del perro
+  const [buttonsDisabled, setButtonsDisabled] = useState(false); // hooks para desabilitar los botones mientras carga el nuevo candidato
+  const [loadingMessage, setLoadingMessage] = useState(null); // mensaje de carga 
 
   const { data, isLoading, isRefetching } = useDogImageQuery();
 
