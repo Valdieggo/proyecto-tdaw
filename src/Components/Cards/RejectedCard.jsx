@@ -14,6 +14,10 @@ const RejectedCard = ({
   dogWithOpenDescription,
   toggleDescription,
 }) => {
+  
+  const getExpansionIcon = (image) =>
+    dogWithOpenDescription === image ? <ExpandLessIcon /> : <ExpandMoreIcon />;
+
   return (
     <>
       {dislikedCandidates.map((candidate, index) => (
@@ -21,7 +25,6 @@ const RejectedCard = ({
           key={index}
           sx={{ maxWidth: 340, borderRadius: 5, marginBottom: 3 }}
         >
-          {console.log(candidate)}
           <CardMedia
             component="img"
             width="200"
@@ -44,21 +47,15 @@ const RejectedCard = ({
             sx={{ display: "flex", justifyContent: "space-between" }}
           >
             <IconButton
-               size="large"
-              //  sx={{ color: "#d12013" }}
+              size="large"
               color="error"
               aria-label="descripcion"
               onClick={() => toggleDescription(candidate.image)}
             >
-              {dogWithOpenDescription === candidate.image ? (
-                <ExpandLessIcon />
-              ) : (
-                <ExpandMoreIcon />
-              )}
+              {getExpansionIcon(candidate.image)}
             </IconButton>
             <IconButton
               size="large"
-              // sx={{ color: "#d12013" }}
               color="error"
               onClick={() => onMove(candidate)}
             >

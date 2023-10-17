@@ -14,6 +14,9 @@ const MatchCard = ({
   dogWithOpenDescription,
   toggleDescription,
 }) => {
+  const getExpansionIcon = (image) =>
+    dogWithOpenDescription === image ? <ExpandLessIcon /> : <ExpandMoreIcon />;
+
   return (
     <>
       {likedCandidates.map((candidate, index) => (
@@ -45,20 +48,14 @@ const MatchCard = ({
             <IconButton
               size="large"
               aria-label="descripcion"
-              // sx={{ color: "#d12013" }}
               color="success"
               onClick={() => toggleDescription(candidate.image)}
             >
-              {dogWithOpenDescription === candidate.image ? (
-                <ExpandLessIcon />
-              ) : (
-                <ExpandMoreIcon />
-              )}
+              {getExpansionIcon(candidate.image)}
             </IconButton>
             <IconButton
               size="large"
               aria-label="mover candidato"
-              // sx={{ color: "#d12013" }}
               color="success"
               onClick={() => onMove(candidate)}
             >
