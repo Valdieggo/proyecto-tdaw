@@ -1,5 +1,6 @@
 const generateRandomDogName = (length = 6) => {
   const characters = "abcdefghijklmnopqrstuvwxyz"; 
+
   let randomName = "";
 
   for (let i = 0; i < length; i++) {

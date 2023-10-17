@@ -20,8 +20,10 @@ const RejectedCard = ({
   return (
     <>
       {dislikedCandidates.map((candidate, index) => (
-        <Card key={index} sx={{ Width: 340, borderRadius: 5, marginBottom: 3 }}>
-          {console.log(candidate)}
+        <Card
+          key={index}
+          sx={{ maxWidth: 340, borderRadius: 2, marginBottom: 3 }}
+        >
           <CardMedia
             component="img"
             width="200"
@@ -30,11 +32,12 @@ const RejectedCard = ({
             alt="Imagen de perro"
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography gutterBottom variant="h5" component="div" align="left">
               {candidate.name}
             </Typography>
             {dogWithOpenDescription === candidate.image && (
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.secondary"
+              align="justify">
                 {candidate.description}
               </Typography>
             )}
