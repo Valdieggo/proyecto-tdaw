@@ -17,37 +17,37 @@ import generateDogDescription from "../../utils/generateDogDescription";
 
 const CandidateCard = ({ onLike, onDislike }) => {
   
-  const [image, setImage] = useState(null); // imagen del perro
-  const [name, setName] = useState(null); // nombre del perro
-  const [description, setDescription] = useState(null); // descripcion del perro
+  const [candidate, setCandidate] = useState({
+    image: null,
+    name: null,
+    description: null,
+  });
+
   const [buttonsDisabled, setButtonsDisabled] = useState(false); // hooks para desabilitar los botones mientras carga el nuevo candidato
-  const [loadingMessage, setLoadingMessage] = useState(null); // mensaje de carga 
+  const [loadingMessage, setLoadingMessage] = useState(null); // mensaje de carga
 
   const { data, isLoading, isRefetching } = useDogImageQuery();
 
   const handleAction = (action) => {
-    const data = {
-      image: image,
-      name: name,
-      description: description,
-    };
-    action(data);
+    action(candidate);
   };
 
   useEffect(() => {
     if (data) {
-      setImage(data);
-      setName(generateRandomDogName());
-      setDescription(generateDogDescription());
+      setCandidate({
+        image: data,
+        name: generateRandomDogName(),
+        description: generateDogDescription(),
+      });
     }
-    if (isRefetching || isLoading) {
+    if (isRefetching) {
       setButtonsDisabled(true);
       setLoadingMessage("Cargando...");
     } else {
       setButtonsDisabled(false);
       setLoadingMessage(null);
     }
-  }, [data, isRefetching, isLoading]);
+  }, [data, isRefetching]);
 
   return (
     <Card sx={{ maxWidth: 340, borderRadius: 5 }}>
@@ -70,21 +70,21 @@ const CandidateCard = ({ onLike, onDislike }) => {
         </>
       ) : (
         <>
-          {image && (
+          {candidate.image && (
             <CardMedia
               component="img"
               width="200"
               height="200"
-              image={image}
+              image={candidate.image}
               alt="Imagen de perro"
             />
           )}
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
-              {name}
+              {candidate.name}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {description}
+              {candidate.description}
             </Typography>
           </CardContent>
           <CardActions

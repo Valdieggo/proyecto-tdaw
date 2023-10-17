@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import { Typography, Box } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
+import CircularProgress from "@mui/material/CircularProgress";
 
 import CandidateCard from "./Cards/CandidateCard";
 import MatchCard from "./Cards/MatchCard";
 import RejectedCard from "./Cards/RejectedCard";
 
-// Estilo opcional, ocultar barra
+// Estilo opcional para ocultar la barra de desplazamiento
 const SCROLL_STYLE = {
   maxHeight: "70vh",
   overflowY: "auto",
@@ -22,8 +23,9 @@ const Home = () => {
   const [matches, setMatches] = useState([]); // Lista de aceptados
   const [rejecteds, setRejected] = useState([]); // Lista de rechazados
   const [newCandidate, setNewCandidate] = useState(true); // Candidato nuevo
-  const [dogWithOpenDescription, setDogWithOpenDescription] = useState(null); //Mostrar descripcion del perro
+  const [dogWithOpenDescription, setDogWithOpenDescription] = useState(null); // Mostrar descripcion del perro
 
+  // Función para manejar el mostrar/ocultar descripción de un perro
   const handleToggleDescription = (dogUrl) => {
     if (dogWithOpenDescription === dogUrl) {
       setDogWithOpenDescription(null);
@@ -31,26 +33,41 @@ const Home = () => {
       setDogWithOpenDescription(dogUrl);
     }
   };
-
+  // Función genérica para agregar un perro a una lista (aceptados o rechazados)
   const addToList = (setter, data) => {
     setter((prev) => [data, ...prev]);
     setNewCandidate(false);
   };
 
+  // Función para mover un perro entre las listas de aceptados y rechazados
   const moveTo = (sourceSetter, targetSetter, candidate) => {
     targetSetter((prev) => [candidate, ...prev]);
     sourceSetter((prev) =>
       prev.filter((item) => item.image !== candidate.image)
     );
-    //  Identifica si el perro que está mostrando su descripción es cambiado de lista 
+    // Cierra la descripción si el perro con descripción abierta es movido
+
     if (dogWithOpenDescription === candidate.image) {
       setDogWithOpenDescription(null);
     }
   };
-
+  // Efecto que establece un nuevo candidato cada vez que hay cambios en las listas de matches o rejecteds
   useEffect(() => {
     setNewCandidate(true);
   }, [matches, rejecteds]);
+
+  if (isLoading) {
+    return (
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        height="100vh"
+      >
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     newCandidate && (
@@ -64,6 +81,7 @@ const Home = () => {
               <CandidateCard
                 onLike={(data) => addToList(setMatches, data)}
                 onDislike={(data) => addToList(setRejected, data)}
+                setIsLoading={setIsLoading}
               />
             </Box>
           </Grid>
