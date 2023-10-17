@@ -4,8 +4,9 @@ import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+import IconButton from "@mui/material/IconButton";
+
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import CircularProgress from "@mui/material/CircularProgress";
@@ -15,6 +16,7 @@ import generateRandomDogName from "../../utils/generateRandomDogName";
 import generateDogDescription from "../../utils/generateDogDescription";
 
 const CandidateCard = ({ onLike, onDislike }) => {
+  
   const [image, setImage] = useState(null);
   const [name, setName] = useState(null);
   const [description, setDescription] = useState(null);
@@ -52,9 +54,6 @@ const CandidateCard = ({ onLike, onDislike }) => {
       {loadingMessage ? (
         <>
           <CardContent>
-            {/* <Typography variant="body1" align="center">
-              {loadingMessage}
-            </Typography> */}
             <CircularProgress />
           </CardContent>
           <CardActions
@@ -94,7 +93,6 @@ const CandidateCard = ({ onLike, onDislike }) => {
           >
             <IconButton
               size="large"
-              // sx={{ color: "#d12013" }}
               color="primary"
               aria-label="Megusta"
               onClick={() => handleAction(onDislike)}
@@ -103,7 +101,6 @@ const CandidateCard = ({ onLike, onDislike }) => {
             </IconButton>
             <IconButton
               size="large"
-              // sx={{ color: "#d12013" }}
               color="primary"
               aria-label="No megusta"
               onClick={() => handleAction(onLike)}
