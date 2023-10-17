@@ -73,13 +73,13 @@ const Home = () => {
           </Grid>
           <Grid xs={6} sm={4}>
             <Typography variant="h6" color="textPrimary">
-              Rechazados
+              Aceptados
             </Typography>
             <Box sx={SCROLL_STYLE}>
-              <RejectedCard
-                dislikedCandidates={rejecteds}
+              <MatchCard
+                likedCandidates={matches}
                 onMove={(candidate) =>
-                  moveTo(setRejected, setMatches, candidate)
+                  moveTo(setMatches, setRejected, candidate)
                 }
                 dogWithOpenDescription={dogWithOpenDescription}
                 toggleDescription={handleToggleDescription}
@@ -88,13 +88,13 @@ const Home = () => {
           </Grid>
           <Grid xs={6} sm={4}>
             <Typography variant="h6" color="textPrimary">
-              Aceptados
+              Rechazados
             </Typography>
             <Box sx={SCROLL_STYLE}>
-              <MatchCard
-                likedCandidates={matches}
+              <RejectedCard
+                dislikedCandidates={rejecteds}
                 onMove={(candidate) =>
-                  moveTo(setMatches, setRejected, candidate)
+                  moveTo(setRejected, setMatches, candidate)
                 }
                 dogWithOpenDescription={dogWithOpenDescription}
                 toggleDescription={handleToggleDescription}
