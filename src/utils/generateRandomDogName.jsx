@@ -1,10 +1,12 @@
 const generateRandomDogName = (length = 6) => {
-  const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  const characters = "abcdefghijklmnopqrstuvwxyz"; 
   let randomName = "";
 
   for (let i = 0; i < length; i++) {
     const randomIndex = Math.floor(Math.random() * characters.length);
-    randomName += characters.charAt(randomIndex);
+    const letter = characters.charAt(randomIndex);
+
+    randomName += i === 0 ? letter.toUpperCase() : letter.toLowerCase();
   }
 
   return randomName;
