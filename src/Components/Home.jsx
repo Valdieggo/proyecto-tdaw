@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Grid, Typography, Box } from "@mui/material";
-
 import CandidateCard from "./Cards/CandidateCard";
 import MatchCard from "./Cards/MatchCard";
 import RejectedCard from "./Cards/RejectedCard";
@@ -51,6 +50,7 @@ const Home = () => {
 
   useEffect(() => {
     setNewCandidate(true);
+    setOpen(false);
   }, [matches, rejecteds]);
 
   return (
@@ -61,31 +61,6 @@ const Home = () => {
             Candidato
           </Typography>
           <CandidateCard onLike={addMatch} onDislike={addRejected} />
-        </Grid>
-
-        <Grid item xs={6} sm={4} md={4}>
-          <Typography variant="h6" color="textPrimary">
-            Rechazados
-          </Typography>
-          <Box
-            sx={{
-              maxHeight: "70vh",
-              overflowY: "auto",
-              "&::-webkit-scrollbar": {
-                width: "0px",
-                background: "transparent", // make scrollbar transparent
-              },
-              scrollbarWidth: "none", // For Firefox
-              msOverflowStyle: "none", // For Internet Explorer and Edge
-            }}
-          >
-            <RejectedCard
-              dislikedCandidates={rejecteds}
-              onMove={moveToMatches}
-              dogWithOpenDescription={dogWithOpenDescription}
-              toggleDescription={handleToggleDescription}
-            />
-          </Box>
         </Grid>
 
         <Grid item xs={6} sm={4} md={4}>
@@ -107,6 +82,31 @@ const Home = () => {
             <MatchCard
               likedCandidates={matches}
               onMove={moveToRejecteds}
+              dogWithOpenDescription={dogWithOpenDescription}
+              toggleDescription={handleToggleDescription}
+            />
+          </Box>
+        </Grid>
+
+        <Grid item xs={6} sm={4} md={4}>
+          <Typography variant="h6" color="textPrimary">
+            Rechazados
+          </Typography>
+          <Box
+            sx={{
+              maxHeight: "70vh",
+              overflowY: "auto",
+              "&::-webkit-scrollbar": {
+                width: "0px",
+                background: "transparent", // make scrollbar transparent
+              },
+              scrollbarWidth: "none", // For Firefox
+              msOverflowStyle: "none", // For Internet Explorer and Edge
+            }}
+          >
+            <RejectedCard
+              dislikedCandidates={rejecteds}
+              onMove={moveToMatches}
               dogWithOpenDescription={dogWithOpenDescription}
               toggleDescription={handleToggleDescription}
             />
