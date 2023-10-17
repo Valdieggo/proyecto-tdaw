@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Typography, Box } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import CircularProgress from "@mui/material/CircularProgress";
 
 import CandidateCard from "./Cards/CandidateCard";
 import MatchCard from "./Cards/MatchCard";
@@ -56,19 +55,6 @@ const Home = () => {
     setNewCandidate(true);
   }, [matches, rejecteds]);
 
-  if (isLoading) {
-    return (
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        height="100vh"
-      >
-        <CircularProgress />
-      </Box>
-    );
-  }
-
   return (
     newCandidate && (
       <Box sx={{ flexGrow: 1 }}>
@@ -81,7 +67,6 @@ const Home = () => {
               <CandidateCard
                 onLike={(data) => addToList(setMatches, data)}
                 onDislike={(data) => addToList(setRejected, data)}
-                setIsLoading={setIsLoading}
               />
             </Box>
           </Grid>
