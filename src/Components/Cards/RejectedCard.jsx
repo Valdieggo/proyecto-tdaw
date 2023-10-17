@@ -17,10 +17,7 @@ const RejectedCard = ({
   return (
     <>
       {dislikedCandidates.map((candidate, index) => (
-        <Card
-          key={index}
-          sx={{ maxWidth: 340, borderRadius: 5, marginBottom: 3 }}
-        >
+        <Card key={index} sx={{ Width: 340, borderRadius: 5, marginBottom: 3 }}>
           {console.log(candidate)}
           <CardMedia
             component="img"
@@ -44,7 +41,7 @@ const RejectedCard = ({
             sx={{ display: "flex", justifyContent: "space-between" }}
           >
             <IconButton
-               size="large"
+              size="large"
               //  sx={{ color: "#d12013" }}
               color="error"
               aria-label="descripcion"

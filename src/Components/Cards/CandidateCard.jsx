@@ -48,7 +48,7 @@ const CandidateCard = ({ onLike, onDislike }) => {
   }, [data, isRefetching, isLoading]);
 
   return (
-    <Card sx={{ maxWidth: 340, borderRadius: 5 }}>
+    <Card sx={{ Width: 340, borderRadius: 5 }}>
       {loadingMessage ? (
         <>
           <CardContent>

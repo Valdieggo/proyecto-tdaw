@@ -54,21 +54,21 @@ const Home = () => {
 
   return (
     newCandidate && (
-      <Grid container spacing={4}>
-        <Grid item xs={4} sm={4} md={4}>
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={4} md={4}>
           <Typography variant="h6" color="textPrimary">
             Candidato
           </Typography>
           <CandidateCard onLike={addMatch} onDislike={addRejected} />
         </Grid>
 
-        <Grid item xs={4} sm={4} md={4}>
+        <Grid item xs={6} sm={4} md={4}>
           <Typography variant="h6" color="textPrimary">
             Aceptados
           </Typography>
           <Box
             sx={{
-              maxHeight: "70vh",
+              maxHeight: "80vh",
               overflowY: "auto",
               "&::-webkit-scrollbar": {
                 width: "0px",
@@ -87,13 +87,13 @@ const Home = () => {
           </Box>
         </Grid>
 
-        <Grid item xs={4} sm={4} md={4}>
+        <Grid item xs={6} sm={4} md={4}>
           <Typography variant="h6" color="textPrimary">
             Rechazados
           </Typography>
           <Box
             sx={{
-              maxHeight: "70vh",
+              maxHeight: "80vh",
               overflowY: "auto",
               "&::-webkit-scrollbar": {
                 width: "0px",

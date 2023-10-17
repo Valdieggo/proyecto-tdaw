@@ -17,10 +17,7 @@ const MatchCard = ({
   return (
     <>
       {likedCandidates.map((candidate, index) => (
-        <Card
-          key={index}
-          sx={{ maxWidth: 340, borderRadius: 5, marginBottom: 3 }}
-        >
+        <Card key={index} sx={{ Width: 340, borderRadius: 5, marginBottom: 3 }}>
           <CardMedia
             component="img"
             width="200"
