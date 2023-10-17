@@ -52,7 +52,7 @@ const CandidateCard = ({ onLike, onDislike }) => {
     <Card
       sx={{
         maxWidth: 340,
-        borderRadius: 2,
+        borderRadius: 2
       }}
     >
       {loadingMessage ? (

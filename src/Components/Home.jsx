@@ -58,7 +58,6 @@ const Home = () => {
 
   return (
     newCandidate && (
-
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           <Grid xs={12} sm={4} display="flex" justifyContent="center">

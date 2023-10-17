@@ -14,7 +14,6 @@ const RejectedCard = ({
   dogWithOpenDescription,
   toggleDescription,
 }) => {
-  
   const getExpansionIcon = (image) =>
     dogWithOpenDescription === image ? <ExpandLessIcon /> : <ExpandMoreIcon />;
 
