@@ -50,7 +50,6 @@ const Home = () => {
 
   useEffect(() => {
     setNewCandidate(true);
-    setOpen(false);
   }, [matches, rejecteds]);
 
   return (
