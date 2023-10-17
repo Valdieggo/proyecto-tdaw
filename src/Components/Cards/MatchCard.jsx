@@ -22,7 +22,7 @@ const MatchCard = ({
       {likedCandidates.map((candidate, index) => (
         <Card
           key={index}
-          sx={{ maxWidth: 340, borderRadius: 5, marginBottom: 3 }}
+          sx={{ maxWidth: 340, borderRadius: 2, marginBottom: 3 }}
         >
           <CardMedia
             component="img"
@@ -32,11 +32,11 @@ const MatchCard = ({
             alt="Imagen de perro"
           />
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography gutterBottom variant="h5" component="div" align="left">
               {candidate.name}
             </Typography>
             {dogWithOpenDescription === candidate.image && (
-              <Typography variant="body2" color="text.secondary">
+              <Typography variant="body2" color="text.secondary" align="justify">
                 {candidate.description}
               </Typography>
             )}

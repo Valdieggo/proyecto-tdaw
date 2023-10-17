@@ -8,7 +8,7 @@ import RejectedCard from "./Cards/RejectedCard";
 
 // Estilo opcional para ocultar la barra de desplazamiento
 const SCROLL_STYLE = {
-  maxHeight: "70vh",
+  maxHeight: "80vh",
   overflowY: "auto",
   "&::-webkit-scrollbar": {
     width: "0px",
