@@ -16,7 +16,6 @@ import generateRandomDogName from "../../utils/generateRandomDogName";
 import generateDogDescription from "../../utils/generateDogDescription";
 
 const CandidateCard = ({ onLike, onDislike }) => {
-  
   const [candidate, setCandidate] = useState({
     image: null,
     name: null,
@@ -47,10 +46,15 @@ const CandidateCard = ({ onLike, onDislike }) => {
       setButtonsDisabled(false);
       setLoadingMessage(null);
     }
-  }, [data, isLoading, isRefetching]);
+  }, [data, isRefetching, isLoading]);
 
   return (
-    <Card sx={{ Width: 340, borderRadius: 5 }}>
+    <Card
+      sx={{
+        maxWidth: 340,
+        borderRadius: 2
+      }}
+    >
       {loadingMessage ? (
         <>
           <CardContent>
@@ -80,10 +84,10 @@ const CandidateCard = ({ onLike, onDislike }) => {
             />
           )}
           <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
+            <Typography gutterBottom variant="h5" component="div" align="left">
               {candidate.name}
             </Typography>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" color="text.secondary" align="justify">
               {candidate.description}
             </Typography>
           </CardContent>
