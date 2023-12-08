@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import Home from "./Components/Home.jsx";
 import doginder from "./assets/doginder.svg";
 import "./App.css";
+import SignUp from "./Components/SignUp.jsx";
 
 const queryClient = new QueryClient();
 
@@ -12,7 +13,8 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Container>
         <img src={doginder} alt="Logo de Doginder" />
-        <Home />
+        {/* <Home /> */}
+        <SignUp />
       </Container>
     </QueryClientProvider>
   );
