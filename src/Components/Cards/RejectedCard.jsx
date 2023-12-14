@@ -30,15 +30,17 @@ const RejectedCard = ({
             height="200"
             image={candidate.image}
             alt="Imagen de perro"
-            sx={{ objectFit: "contain", objectPosition: "center" }}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div" align="left">
               {candidate.name}
             </Typography>
             {dogWithOpenDescription === candidate.image && (
-              <Typography variant="body2" color="text.secondary"
-              align="justify">
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                align="justify"
+              >
                 {candidate.description}
               </Typography>
             )}

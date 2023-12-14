@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 
 import { Typography, Box } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-
+import doginder from "../assets/doginder.svg";
 import CandidateCard from "../Components/Cards/CandidateCard";
 import MatchCard from "../Components/Cards/MatchCard";
 import RejectedCard from "../Components/Cards/RejectedCard";
+import PaperComponent from "../Components/Container/PaperComponent";
 
 // Estilo opcional para ocultar la barra de desplazamiento
 const SCROLL_STYLE = {
@@ -19,7 +20,7 @@ const SCROLL_STYLE = {
   msOverflowStyle: "none", // ocultar barra de scroll - Internet Explorer y Edge
 };
 
-const Home = () => {
+const CandidatosSeleccion = () => {
   const [matches, setMatches] = useState([]); // Lista de aceptados
   const [rejecteds, setRejected] = useState([]); // Lista de rechazados
   const [newCandidate, setNewCandidate] = useState(true); // Candidato nuevo
@@ -58,53 +59,58 @@ const Home = () => {
 
   return (
     newCandidate && (
-      <Box sx={{ flexGrow: 1 }}>
-        <Grid container spacing={2}>
-          <Grid xs={12} sm={4} display="flex" justifyContent="center">
-            <Box>
-              <Typography variant="h6" color="textPrimary">
-                Candidato
-              </Typography>
-              <CandidateCard
-                onLike={(data) => addToList(setMatches, data)}
-                onDislike={(data) => addToList(setRejected, data)}
-              />
-            </Box>
-          </Grid>
-          <Grid xs={6} sm={4}>
-            <Typography variant="h6" color="textPrimary">
-              Aceptados
-            </Typography>
-            <Box sx={SCROLL_STYLE}>
-              <MatchCard
-                likedCandidates={matches}
-                onMove={(candidate) =>
-                  moveTo(setMatches, setRejected, candidate)
-                }
-                dogWithOpenDescription={dogWithOpenDescription}
-                toggleDescription={handleToggleDescription}
-              />
-            </Box>
-          </Grid>
-          <Grid xs={6} sm={4}>
-            <Typography variant="h6" color="textPrimary">
-              Rechazados
-            </Typography>
-            <Box sx={SCROLL_STYLE}>
-              <RejectedCard
-                dislikedCandidates={rejecteds}
-                onMove={(candidate) =>
-                  moveTo(setRejected, setMatches, candidate)
-                }
-                dogWithOpenDescription={dogWithOpenDescription}
-                toggleDescription={handleToggleDescription}
-              />
-            </Box>
-          </Grid>
-        </Grid>
-      </Box>
+      <>
+        <img src={doginder} alt="Logo de Doginder" />
+        <PaperComponent>
+          <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2}>
+              <Grid xs={12} sm={4} display="flex" justifyContent="center">
+                <Box>
+                  <Typography variant="h6" color="textPrimary">
+                    Candidato
+                  </Typography>
+                  <CandidateCard
+                    onLike={(data) => addToList(setMatches, data)}
+                    onDislike={(data) => addToList(setRejected, data)}
+                  />
+                </Box>
+              </Grid>
+              <Grid xs={6} sm={4}>
+                <Typography variant="h6" color="textPrimary">
+                  Aceptados
+                </Typography>
+                <Box sx={SCROLL_STYLE}>
+                  <MatchCard
+                    likedCandidates={matches}
+                    onMove={(candidate) =>
+                      moveTo(setMatches, setRejected, candidate)
+                    }
+                    dogWithOpenDescription={dogWithOpenDescription}
+                    toggleDescription={handleToggleDescription}
+                  />
+                </Box>
+              </Grid>
+              <Grid xs={6} sm={4}>
+                <Typography variant="h6" color="textPrimary">
+                  Rechazados
+                </Typography>
+                <Box sx={SCROLL_STYLE}>
+                  <RejectedCard
+                    dislikedCandidates={rejecteds}
+                    onMove={(candidate) =>
+                      moveTo(setRejected, setMatches, candidate)
+                    }
+                    dogWithOpenDescription={dogWithOpenDescription}
+                    toggleDescription={handleToggleDescription}
+                  />
+                </Box>
+              </Grid>
+            </Grid>
+          </Box>
+        </PaperComponent>
+      </>
     )
   );
 };
 
-export default Home;
+export default CandidatosSeleccion;

@@ -30,7 +30,6 @@ const MatchCard = ({
             height="200"
             image={candidate.image}
             alt="Imagen de perro"
-            sx={{ objectFit: "contain", objectPosition: "center" }}
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div" align="left">

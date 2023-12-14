@@ -1,3 +1,4 @@
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import {
   Avatar,
   Box,
@@ -11,9 +12,11 @@ import {
 } from "@mui/material";
 import { useQuery } from "@tanstack/react-query";
 import { dogsServices } from "../services/dogsServices";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { useNavigate } from "react-router-dom";
 
 const PerfilSeleccion = () => {
+  const navigate = useNavigate();
+
   const { data: listaPerros, isLoading } = useQuery({
     queryKey: ["listaPerros"],
     queryFn: dogsServices.listarPerros,
@@ -22,6 +25,10 @@ const PerfilSeleccion = () => {
     },
     refetchOnWindowFocus: false,
   });
+
+  const handleSelect = (perroId) => {
+    navigate("/candidato", { state: { perroId } });
+  };
 
   if (isLoading) {
     return <div>Cargando...</div>;
@@ -65,7 +72,7 @@ const PerfilSeleccion = () => {
               variant="contained"
               color="primary"
               startIcon={<CheckCircleOutlineIcon />}
-              onClick={() => console.log("Seleccionado")}
+              onClick={() => handleSelect(perro.id)}
             >
               Seleccionar
             </Button>

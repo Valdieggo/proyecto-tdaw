@@ -81,7 +81,6 @@ const CandidateCard = ({ onLike, onDislike }) => {
               height="200"
               image={candidate.image}
               alt="Imagen de perro"
-              sx={{ objectFit: "contain", objectPosition: "center" }}
             />
           )}
           <CardContent>
