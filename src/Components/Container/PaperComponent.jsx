@@ -8,7 +8,8 @@ const PaperComponent = ({ children }) => {
         elevation={2}
         sx={{
           px: 3,
-          py: 1,
+          pt: 2,
+          pb: 4,
           mb: 4,
         }}
       >

@@ -7,6 +7,7 @@ import CandidateCard from "../Components/Cards/CandidateCard";
 import MatchCard from "../Components/Cards/MatchCard";
 import RejectedCard from "../Components/Cards/RejectedCard";
 import PaperComponent from "../Components/Container/PaperComponent";
+import DefaultLayout from "../Components/Layout/DefaultLayout";
 
 // Estilo opcional para ocultar la barra de desplazamiento
 const SCROLL_STYLE = {
@@ -59,56 +60,53 @@ const CandidatosSeleccion = () => {
 
   return (
     newCandidate && (
-      <>
-        <img src={doginder} alt="Logo de Doginder" />
-        <PaperComponent>
-          <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={2}>
-              <Grid xs={12} sm={4} display="flex" justifyContent="center">
-                <Box>
-                  <Typography variant="h6" color="textPrimary">
-                    Candidato
-                  </Typography>
-                  <CandidateCard
-                    onLike={(data) => addToList(setMatches, data)}
-                    onDislike={(data) => addToList(setRejected, data)}
-                  />
-                </Box>
-              </Grid>
-              <Grid xs={6} sm={4}>
+      <DefaultLayout volver={true}>
+        <Box sx={{ flexGrow: 1 }}>
+          <Grid container spacing={2}>
+            <Grid xs={12} sm={4} display="flex" justifyContent="center">
+              <Box>
                 <Typography variant="h6" color="textPrimary">
-                  Aceptados
+                  Candidato
                 </Typography>
-                <Box sx={SCROLL_STYLE}>
-                  <MatchCard
-                    likedCandidates={matches}
-                    onMove={(candidate) =>
-                      moveTo(setMatches, setRejected, candidate)
-                    }
-                    dogWithOpenDescription={dogWithOpenDescription}
-                    toggleDescription={handleToggleDescription}
-                  />
-                </Box>
-              </Grid>
-              <Grid xs={6} sm={4}>
-                <Typography variant="h6" color="textPrimary">
-                  Rechazados
-                </Typography>
-                <Box sx={SCROLL_STYLE}>
-                  <RejectedCard
-                    dislikedCandidates={rejecteds}
-                    onMove={(candidate) =>
-                      moveTo(setRejected, setMatches, candidate)
-                    }
-                    dogWithOpenDescription={dogWithOpenDescription}
-                    toggleDescription={handleToggleDescription}
-                  />
-                </Box>
-              </Grid>
+                <CandidateCard
+                  onLike={(data) => addToList(setMatches, data)}
+                  onDislike={(data) => addToList(setRejected, data)}
+                />
+              </Box>
             </Grid>
-          </Box>
-        </PaperComponent>
-      </>
+            <Grid xs={6} sm={4}>
+              <Typography variant="h6" color="textPrimary">
+                Aceptados
+              </Typography>
+              <Box sx={SCROLL_STYLE}>
+                <MatchCard
+                  likedCandidates={matches}
+                  onMove={(candidate) =>
+                    moveTo(setMatches, setRejected, candidate)
+                  }
+                  dogWithOpenDescription={dogWithOpenDescription}
+                  toggleDescription={handleToggleDescription}
+                />
+              </Box>
+            </Grid>
+            <Grid xs={6} sm={4}>
+              <Typography variant="h6" color="textPrimary">
+                Rechazados
+              </Typography>
+              <Box sx={SCROLL_STYLE}>
+                <RejectedCard
+                  dislikedCandidates={rejecteds}
+                  onMove={(candidate) =>
+                    moveTo(setRejected, setMatches, candidate)
+                  }
+                  dogWithOpenDescription={dogWithOpenDescription}
+                  toggleDescription={handleToggleDescription}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+        </Box>
+      </DefaultLayout>
     )
   );
 };
