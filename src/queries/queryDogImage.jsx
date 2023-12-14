@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 const DOG_API_ENDPOINT = "https://dog.ceo/api/breeds/image/random";
 
@@ -21,7 +21,19 @@ const fetchRandomDogImage = async () => {
 };
 
 export const useDogImageQuery = () => {
-  return useQuery("randomDogImage", fetchRandomDogImage, {
+  const {
+    data: perroImagen,
+    isRefetching,
+    isLoading,
+    refetch,
+  } = useQuery({
+    queryKey: ["randomDogImage"],
+    queryFn: fetchRandomDogImage,
+    onError: (error) => {
+      console.error("Error al cargar los perros: ", error);
+    },
     refetchOnWindowFocus: false,
   });
+
+  return { perroImagen, isRefetching, isLoading, refetch };
 };

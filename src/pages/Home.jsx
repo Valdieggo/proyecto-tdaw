@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { Typography, Box } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
 
-import CandidateCard from "./Cards/CandidateCard";
-import MatchCard from "./Cards/MatchCard";
-import RejectedCard from "./Cards/RejectedCard";
+import CandidateCard from "../Components/Cards/CandidateCard";
+import MatchCard from "../Components/Cards/MatchCard";
+import RejectedCard from "../Components/Cards/RejectedCard";
 
 // Estilo opcional para ocultar la barra de desplazamiento
 const SCROLL_STYLE = {

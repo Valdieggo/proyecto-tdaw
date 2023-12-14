@@ -18,23 +18,23 @@ import generateDogDescription from "../../utils/generateDogDescription";
 const CandidateCard = ({ onLike, onDislike }) => {
   const [candidate, setCandidate] = useState({
     image: null,
-    name: null,
-    description: null,
+    name: '',
+    description: '',
   });
 
   const [buttonsDisabled, setButtonsDisabled] = useState(false); // hooks para desabilitar los botones mientras carga el nuevo candidato
   const [loadingMessage, setLoadingMessage] = useState(null); // mensaje de carga
 
-  const { data, isLoading, isRefetching } = useDogImageQuery();
+  const { perroImagen, isLoading, isRefetching } = useDogImageQuery();
 
   const handleAction = (action) => {
     action(candidate);
   };
 
   useEffect(() => {
-    if (data) {
+    if (perroImagen) {
       setCandidate({
-        image: data,
+        image: perroImagen,
         name: generateRandomDogName(),
         description: generateDogDescription(),
       });
@@ -46,7 +46,7 @@ const CandidateCard = ({ onLike, onDislike }) => {
       setButtonsDisabled(false);
       setLoadingMessage(null);
     }
-  }, [data, isRefetching, isLoading]);
+  }, [perroImagen, isRefetching, isLoading]);
 
   return (
     <Card
@@ -81,6 +81,7 @@ const CandidateCard = ({ onLike, onDislike }) => {
               height="200"
               image={candidate.image}
               alt="Imagen de perro"
+              sx={{ objectFit: "contain", objectPosition: "center" }}
             />
           )}
           <CardContent>
