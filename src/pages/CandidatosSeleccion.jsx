@@ -1,25 +1,11 @@
-import { useEffect, useState } from "react";
-
-import { Typography, Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2";
-import doginder from "../assets/doginder.svg";
+import { useEffect, useState } from "react";
 import CandidateCard from "../Components/Cards/CandidateCard";
 import MatchCard from "../Components/Cards/MatchCard";
 import RejectedCard from "../Components/Cards/RejectedCard";
-import PaperComponent from "../Components/Container/PaperComponent";
 import DefaultLayout from "../Components/Layout/DefaultLayout";
-
-// Estilo opcional para ocultar la barra de desplazamiento
-const SCROLL_STYLE = {
-  maxHeight: "80vh",
-  overflowY: "auto",
-  "&::-webkit-scrollbar": {
-    width: "0px",
-    background: "transparent", // ocultar barra de scroll Chrome
-  },
-  scrollbarWidth: "none", // ocultar barra de scroll - Firefox
-  msOverflowStyle: "none", // ocultar barra de scroll - Internet Explorer y Edge
-};
+import { SCROLL_STYLE } from "../constants/scrollStyle";
 
 const CandidatosSeleccion = () => {
   const [matches, setMatches] = useState([]); // Lista de aceptados
@@ -35,7 +21,7 @@ const CandidatosSeleccion = () => {
       setDogWithOpenDescription(dogUrl);
     }
   };
-  // Función genérica para agregar un perro a una lista (aceptados o rechazados)
+  // Función para agregar un perro a una lista (aceptados o rechazados)
   const addToList = (setter, data) => {
     setter((prev) => [data, ...prev]);
     setNewCandidate(false);
@@ -71,6 +57,8 @@ const CandidatosSeleccion = () => {
                 <CandidateCard
                   onLike={(data) => addToList(setMatches, data)}
                   onDislike={(data) => addToList(setRejected, data)}
+                  matches={matches}
+                  rejecteds={rejecteds}
                 />
               </Box>
             </Grid>

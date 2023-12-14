@@ -1,42 +1,41 @@
-import { useState, useEffect } from "react";
-
+import ThumbDownIcon from "@mui/icons-material/ThumbDown";
+import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-
-import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-import ThumbUpIcon from "@mui/icons-material/ThumbUp";
-import CircularProgress from "@mui/material/CircularProgress";
-
-import { useDogImageQuery } from "../../queries/queryDogImage";
-import generateRandomDogName from "../../utils/generateRandomDogName";
-import generateDogDescription from "../../utils/generateDogDescription";
+import Typography from "@mui/material/Typography";
+import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
+import useDogRegisterRandom from "../../hooks/useDogRegisterRandom";
+import CardLoading from "../Loading/CardLoading";
 
 const CandidateCard = ({ onLike, onDislike }) => {
+  const location = useLocation();
+  const perroId = location.state.perroId;
+
   const [candidate, setCandidate] = useState({
     image: null,
-    name: '',
-    description: '',
+    name: "",
+    description: "",
   });
+  const [buttonsDisabled, setButtonsDisabled] = useState(false);
+  const [loadingMessage, setLoadingMessage] = useState(null); 
 
-  const [buttonsDisabled, setButtonsDisabled] = useState(false); // hooks para desabilitar los botones mientras carga el nuevo candidato
-  const [loadingMessage, setLoadingMessage] = useState(null); // mensaje de carga
-
-  const { perroImagen, isLoading, isRefetching } = useDogImageQuery();
+  const { perroRegistradoRandom, isRefetching, isLoading } =
+    useDogRegisterRandom(perroId);
 
   const handleAction = (action) => {
     action(candidate);
   };
 
   useEffect(() => {
-    if (perroImagen) {
+    if (perroRegistradoRandom?.foto_url) {
       setCandidate({
-        image: perroImagen,
-        name: generateRandomDogName(),
-        description: generateDogDescription(),
+        image: perroRegistradoRandom.foto_url,
+        name: perroRegistradoRandom.nombre,
+        description: perroRegistradoRandom.descripcion,
       });
     }
     if (isLoading || isRefetching) {
@@ -46,32 +45,17 @@ const CandidateCard = ({ onLike, onDislike }) => {
       setButtonsDisabled(false);
       setLoadingMessage(null);
     }
-  }, [perroImagen, isRefetching, isLoading]);
+  }, [perroRegistradoRandom, isRefetching, isLoading]);
 
   return (
     <Card
       sx={{
         maxWidth: 340,
-        borderRadius: 2
+        borderRadius: 2,
       }}
     >
       {loadingMessage ? (
-        <>
-          <CardContent>
-            <CircularProgress />
-          </CardContent>
-          <CardActions
-            disableSpacing
-            sx={{ display: "flex", justifyContent: "center" }}
-          >
-            <IconButton size="large" disabled={buttonsDisabled}>
-              <ThumbDownIcon />
-            </IconButton>
-            <IconButton size="large" disabled={buttonsDisabled}>
-              <ThumbUpIcon />
-            </IconButton>
-          </CardActions>
-        </>
+        <CardLoading buttonsDisabled={buttonsDisabled} />
       ) : (
         <>
           {candidate.image && (

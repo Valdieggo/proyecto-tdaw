@@ -20,7 +20,7 @@ const fetchRandomDogImage = async () => {
   }
 };
 
-export const useDogImageQuery = () => {
+const useDogImageQuery = () => {
   const {
     data: perroImagen,
     isRefetching,
@@ -37,3 +37,5 @@ export const useDogImageQuery = () => {
 
   return { perroImagen, isRefetching, isLoading, refetch };
 };
+
+export default useDogImageQuery;

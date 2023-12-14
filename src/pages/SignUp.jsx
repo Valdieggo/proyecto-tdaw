@@ -1,10 +1,10 @@
 import AddIcon from "@mui/icons-material/Add";
-import { Box, Button, Divider, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import RegisterCard from "../Components/Cards/RegisterCard";
-import { useDogImageQuery } from "../queries/queryDogImage";
+import useDogImageQuery from "../hooks/useDogImageQuery";
 import { dogsServices } from "../services/dogsServices";
 
 import DefaultLayout from "../Components/Layout/DefaultLayout";
